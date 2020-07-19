@@ -10,6 +10,7 @@
             <div class="card-body">
                 <p class="card-text">内容：{{ $post->body }}</p>
                 <p>投稿者：{{ $post->user->name }}</p>
+                <img src="{{ $post->image_path }}" alt="画像">
                 <p>投稿日時：{{ $post->created_at }}</p>
                 <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">
                 編集する</a>

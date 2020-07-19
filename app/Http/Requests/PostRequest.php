@@ -27,6 +27,7 @@ class PostRequest extends FormRequest
             //
             'title' => 'required|max:20',
              'body'  => 'required',
+             'image' => 'mimes:jpeg,jpg,png,gif|max:10240',
         ];
     }
 
@@ -36,6 +37,8 @@ class PostRequest extends FormRequest
             'title.required' => 'タイトルは必須です。',
             'title.max'      => 'タイトルは20文字以内で記入してください。',
             'body.required'  => '内容は必須です。',
+            'image.mimes'    => 'ファイルタイプをjpeg,jpg,png,gifに設定してください。',
+            'image.max'      => 'ファイルサイズを10MB以下に設定してください。',
         ];
     }
 }

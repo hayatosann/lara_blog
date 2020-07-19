@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Comment;
+use App\Post;
+use Auth;
 
 class CommentController extends Controller
 {
@@ -32,9 +35,19 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CommentRequest $request)
     {
-        //
+        $post = Post::find($request->post_id);  //まず該当の投稿を探す
+
+        $comment = new Comment;              //commentのインスタンスを作成
+
+        $comment -> body    = $request -> body;
+        $comment -> user_id = Auth::id();
+        $comment -> post_id = $request -> post_id;
+
+        $comment -> save();
+
+        return view('posts.show', compact('post'));  //リターン先は該当の投稿詳細ページ
     }
 
     /**
@@ -46,6 +59,7 @@ class CommentController extends Controller
     public function show($id)
     {
         //
+        
     }
 
     /**

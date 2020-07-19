@@ -25,6 +25,7 @@ class PostController extends Controller
     {
         //
         $posts = Post::all();
+        $posts->load('user');
         return view('posts.index', compact('posts'));
     }
 
@@ -68,6 +69,7 @@ class PostController extends Controller
     {
         //
         $post = Post::find($id);
+        $post->load('user', 'comments');
         return view('posts.show', compact('post'));
 
     }
@@ -83,6 +85,10 @@ class PostController extends Controller
         //
         $post = Post::find($id);
 
+        if(Auth::id() !== $post->user_id){
+            return abort(404);
+        }
+
         return view('posts.edit', compact('post'));
     }
 
@@ -97,6 +103,10 @@ class PostController extends Controller
     {
         //
         $post = Post::find($id);
+
+        if(Auth::id() !== $post->user_id){
+            return abort(404);
+        }
 
         $post -> title    = $request -> title;
         $post -> body     = $request -> body;
@@ -116,6 +126,10 @@ class PostController extends Controller
     {
         //
         $post = Post::find($id);
+
+        if(Auth::id() !== $post->user_id){
+            return abort(404);
+        }
 
         $post -> delete();
 
